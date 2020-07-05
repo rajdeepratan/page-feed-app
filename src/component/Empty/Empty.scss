@@ -1,0 +1,22 @@
+.not-data-found {
+  color: black;
+  background: #fff;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  padding: 90px 30px;
+  min-height: calc(100vh - 5em);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  .icon {
+    margin-bottom: 15px;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}

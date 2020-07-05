@@ -1,0 +1,71 @@
+@mixin backgroundAnimation {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(25%, #f2f2f2),
+    color-stop(37%, #e6e6e6),
+    color-stop(63%, #f2f2f2)
+  );
+  background: -webkit-linear-gradient(
+    left,
+    #f2f2f2 25%,
+    #e6e6e6 37%,
+    #f2f2f2 63%
+  );
+  background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+  background-size: 400% 100%;
+  -webkit-animation: ant-skeleton-loading 1s ease infinite;
+  animation: ant-skeleton-loading 1s ease infinite;
+}
+
+.card-loader {
+  margin-top: 20px;
+  .loader-wrapper {
+    margin-bottom: 65px;
+    .loader-image {
+      width: 328px;
+      height: 250px;
+      background-clip: padding-box;
+      display: inline-block;
+      @include backgroundAnimation();
+    }
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        width: 40%;
+        height: 16px;
+        @include backgroundAnimation();
+      }
+      .date {
+        width: 30%;
+        height: 16px;
+        @include backgroundAnimation();
+      }
+    }
+  }
+  ul {
+    &.other-details {
+      padding: 0px;
+      list-style: none;
+      text-align: right;
+      margin-bottom: 0px;
+      margin-top: 10px;
+      li {
+        margin-bottom: 12px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+        -webkit-border-radius: 100%;
+        border-radius: 100%;
+        background-clip: padding-box;
+        @include backgroundAnimation();
+        &:last-child {
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+}
