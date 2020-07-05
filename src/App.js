@@ -19,36 +19,42 @@ function App() {
 
   useEffect(() => {
     pageOneList();
-  },[]);
+  }, []);
 
-  const feedListCall = (url) => {
-    axios
-      .get(`${url}`)
-      .then((res) => {
-        const postList = res.data.posts;
-        if (postList.length) {
-          setPostFeed(postList);
-        } else {
-          setErrorMessage("No Data");
-        }
-        setPostLoading(false);
-      })
-      .catch(() => {
-        setPostLoading(false);
-        setErrorMessage("Unable to fech page 1 data");
-      });
+  const feedListCall = (url, pageNumber) => {
+    if (localStorage.getItem(pageNumber)) {
+      setPostFeed(JSON.parse(localStorage.getItem(pageNumber)));
+      setPostLoading(false);
+    } else {
+      axios
+        .get(`${url}`)
+        .then((res) => {
+          const postList = res.data.posts;
+          if (postList.length) {
+            setPostFeed(postList);
+            localStorage.setItem(pageNumber, JSON.stringify(postList));
+          } else {
+            setErrorMessage("No Data");
+          }
+          setPostLoading(false);
+        })
+        .catch(() => {
+          setPostLoading(false);
+          setErrorMessage("Unable to fech page 1 data");
+        });
+    }
   };
 
   const pageOneList = () => {
-    feedListCall(pageOneFeedUrl);
+    feedListCall(pageOneFeedUrl, "pageOne");
   };
 
   const pageTwoList = () => {
-    feedListCall(pageTwoFeedUrl);
+    feedListCall(pageTwoFeedUrl, "pageTwo");
   };
 
   const pageThreeList = () => {
-    feedListCall(pageThreeFeedUrl);
+    feedListCall(pageThreeFeedUrl, "pageThree");
   };
 
   const sorting = (selectedValue) => {

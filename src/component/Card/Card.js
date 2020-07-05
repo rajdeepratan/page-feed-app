@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 
 import { eye, like, share } from "assets";
 import "./Card.scss";
 
 function Card({ selectedOption, postFeed }) {
+  const [showDetails, setShowDetails] = useState(null);
+
+  useEffect(() => {
+    setShowDetails(null);
+  }, [postFeed]);
+
   const sorting = (a, b) => {
     if (selectedOption) {
       if (selectedOption.value === "date") {
@@ -47,6 +53,10 @@ function Card({ selectedOption, postFeed }) {
     return 0;
   };
 
+  const showDetailsFunction = (index) => {
+    setShowDetails(index);
+  };
+
   return (
     <div className="feed-card">
       <div className="row">
@@ -71,14 +81,26 @@ function Card({ selectedOption, postFeed }) {
                   <span>{moment(listItem.event_date).format("MMM Do YY")}</span>
                 </div>
               </div>
-              <div className="other-details">
-                <img src={like} alt="" />
-                <span>{listItem.likes}</span>
-                <img src={eye} alt="" />
-                <span>{listItem.views}</span>
-                <img src={share} alt="" />
-                <span>{listItem.shares}</span>
-              </div>
+              {showDetails === index ? (
+                <div className="other-details">
+                  <img src={like} alt="" />
+                  <span>{listItem.likes}</span>
+                  <img src={eye} alt="" />
+                  <span>{listItem.views}</span>
+                  <img src={share} alt="" />
+                  <span>{listItem.shares}</span>
+                </div>
+              ) : (
+                <div className="show-more-button">
+                  <button
+                    type="button"
+                    className="btn btn-info btn-sm"
+                    onClick={() => showDetailsFunction(index)}
+                  >
+                    Show More
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ))}
